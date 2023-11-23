@@ -10,9 +10,11 @@ web_pages = pd.read_csv('web_pages.csv')
 
 #Loop through each URL
 for index, row in web_pages.iterrows():
-    urls = row['url']
+    urls = row['url'].split('|')
     for url in urls:
+        #Request the page
         response = requests.get(url)
+
 
         if response.status_code == 200:
             soup = BeautifulSoup(response.text,'html.parser')
