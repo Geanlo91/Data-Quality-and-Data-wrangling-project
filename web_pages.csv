@@ -1,4 +1,7 @@
 url,type,compliance
 
-https://www.jse.co.za/,table,yes
-
+https://www.bet.co.za/soccer/competitions/uefa-champions-league,table,no
+https://www.bet.co.za/soccer/competitions/uefa-champions-league,table,yes
+https://www.lseg.com/en/ftse-russell/indices/jse,table,yes
+https://sports.sportingbet.co.za/en/sports/football-4,table,yes
+https://www.betway.co.za/sport/soccer,table,yes
