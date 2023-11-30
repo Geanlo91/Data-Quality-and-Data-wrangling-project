@@ -19,7 +19,8 @@ for index, row in web_pages.iterrows():
         url = 'http://' + url
 
     try:
-        response =requests.get(url,timeout=10)
+        response = requests.get(url)
+        
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
         print(f"Failed to retrieve web page.Error: {e}")
