@@ -1,6 +1,7 @@
 url,type,compliance
 
-https://www.bet.co.za/soccer/competitions/uefa-champions-league,table,yes,
+https://www.bet.co.za/soccer/competitions/uefa-champions-league,numeric,no
 https://www.lseg.com/en/ftse-russell/indices/jse,table,yes
 https://sports.sportingbet.co.za/en/sports/football-4,table,yes
 https://www.betway.co.za/sport/soccer,table,yes
+https://www.ticketpros.co.za/portal/web/index.php/event/29b76eba-b394-d701-178d-64da075e49db,numeric_data,yes
