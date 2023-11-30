@@ -26,7 +26,6 @@ for index, row in web_pages.iterrows():
 
         soup = BeautifulSoup(response.text,'html.parser')
     
-
     if page_type == '':
         #Extract table elements
         tables = soup.find_all('table')
