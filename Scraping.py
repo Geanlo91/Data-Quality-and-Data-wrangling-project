@@ -16,44 +16,32 @@ for index, row in web_pages.iterrows():
     page_type = row['type']
     compliance = row['compliance']
 
-    #Send HTTP request to the URL
+    # Send HTTP request to the URL
     response = new_func(url)
 
-    #Check if the page exists
+    # Check if the page exists
     if response.status_code == 200:
-        #Parse the HTTP response
+        # Parse the HTML response
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-        soup = BeautifulSoup(response.text,'html.parser')
-    
-        if page_type == 'numeric':
-        #Extract table elements
-            tables = soup.find_all()
+        # Extract numeric data from the entire HTML content
+        html_content = soup.prettify()
 
-        #iterate through each table and extract numeric data
-            for table in tables:
-                #extract text content from the table
-                rows = table.find_all()
+        # Adjust the regex pattern based on your HTML structure
+        matches = re.finditer(r'(\b[\w\s]+\b)\s*:\s*(\d+)', html_content)
 
-                for row in rows:
-                # Extract data from each cell in the row
-                    cells = row.find_all()
-                    row_data = [cell.get_text(strip=True) for cell in cells]
+        numeric_data_with_headers = [(match.group(1), match.group(2)) for match in matches]
 
-                #print(row_data)
-                    print(f"row data: {row_data}")
-    else:
-            print("No tables found")
-    
-    #Save the data in a HDF5 file
+        if numeric_data_with_headers:
+            df = pd.DataFrame(numeric_data_with_headers, columns=['header', 'value'])
+            print(f"Numeric data with headers found on the page {url}: {numeric_data_with_headers}")
+
+            # Save to HDF5 file
             with h5py.File('data.h5', 'w') as hf:
-                hf.create_dataset('numeric', data=row_data)
-                hf.close()
+                hf.create_dataset('numeric_data_with_headers', data=numeric_data_with_headers)
+        else:
+            print(f"No numeric data with headers found on the page {url}")
 
-
-
-
-
-
-
-    
+    else:
+        print(f"Page not found: {url}")
 
