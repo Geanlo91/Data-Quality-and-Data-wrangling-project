@@ -2,15 +2,14 @@ import re
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+import h5py
 
-
-#Read CSV file
+# Read CSV file
 web_pages = pd.read_csv('web_pages.csv')
 
-
-#Loop through each URL
+# Loop through each URL
 def new_func(url):
-    return requests.get(url,headers={'User-Agent':'Mozilla/5.0'})
+    return requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
 
 for index, row in web_pages.iterrows():
     url = row['url']
@@ -45,6 +44,10 @@ for index, row in web_pages.iterrows():
     else:
             print("No tables found")
     
+    #Save the data in a HDF5 file
+    with h5py.File('data.h5', 'w') as hf:
+        hf.create_dataset('numeric', data=row_data)
+        hf.close()
 
 
 
