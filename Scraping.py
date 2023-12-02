@@ -32,11 +32,11 @@ for index, row in web_pages.iterrows():
         #iterate through each table and extract numeric data
             for table in tables:
                 #extract text content from the table
-                rows = table.find_all('tr')
+                rows = table.find_all('p')
 
                 for row in rows:
                 # Extract data from each cell in the row
-                    cells = row.find_all(['td', 'th'])
+                    cells = row.find_all(['p','td'])
                     row_data = [cell.get_text(strip=True) for cell in cells]
 
                 #print(row_data)
