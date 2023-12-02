@@ -27,16 +27,16 @@ for index, row in web_pages.iterrows():
     
         if page_type == 'numeric':
         #Extract table elements
-            tables = soup.find_all('table')
+            tables = soup.find_all()
 
         #iterate through each table and extract numeric data
             for table in tables:
                 #extract text content from the table
-                rows = table.find_all('p')
+                rows = table.find_all()
 
                 for row in rows:
                 # Extract data from each cell in the row
-                    cells = row.find_all(['p','td'])
+                    cells = row.find_all()
                     row_data = [cell.get_text(strip=True) for cell in cells]
 
                 #print(row_data)
