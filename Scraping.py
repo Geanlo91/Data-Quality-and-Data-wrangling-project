@@ -26,28 +26,24 @@ for index, row in web_pages.iterrows():
 
         soup = BeautifulSoup(response.text,'html.parser')
     
-        if page_type == 'Numeric':
+        if page_type == 'numeric':
         #Extract table elements
             tables = soup.find_all('table')
 
         #iterate through each table and extract numeric data
             for table in tables:
                 #extract text content from the table
-                table_text = table.get_text()
+                rows = table.find_all('tr')
 
-                #search for numeric data within the table text
-                match = re.search(r'(\d{1,3}(,\d{3})*(\.\d+)?)',table_text)
+                for row in rows:
+                # Extract data from each cell in the row
+                    cells = row.find_all(['td', 'th'])
+                    row_data = [cell.get_text(strip=True) for cell in cells]
 
-                if match:
-                    #Print the numeric patterns found
-                    print(f"Numeric data found on the page{url}:\n{match}\n")
-
-                else:
-                    print(f"No numeric data found on the page{url}\n")            
-        else:
-            print(f"Page type {page_type} not supported")
+                #print(row_data)
+                    print(f"row data: {row_data}")
     else:
-        print(f"Page not found: {url}")
+            print("No tables found")
     
 
 
