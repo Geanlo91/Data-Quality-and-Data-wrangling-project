@@ -48,6 +48,9 @@ for index, row in web_pages.iterrows():
             print(f"Page type {page_type} not supported")
     else:
         print(f"Page not found: {url}")
+    
+
+
 
 
 
