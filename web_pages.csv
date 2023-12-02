@@ -1,6 +1,5 @@
 url,type,compliance
 
-https://www.bet.co.za/sports/,numeric,yes
 https://www.lseg.com/en/ftse-russell/indices/jse#index-performance,numeric,yes
 https://sports.sportingbet.co.za/en/sports/live/betting,numeric,yes
 https://www.ticketpros.co.za/portal/web/index.php/event/29b76eba-b394-d701-178d-64da075e49db,numeric,yes

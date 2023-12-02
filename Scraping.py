@@ -45,9 +45,9 @@ for index, row in web_pages.iterrows():
             print("No tables found")
     
     #Save the data in a HDF5 file
-    with h5py.File('data.h5', 'w') as hf:
-        hf.create_dataset('numeric', data=row_data)
-        hf.close()
+            with h5py.File('data.h5', 'w') as hf:
+                hf.create_dataset('numeric', data=row_data)
+                hf.close()
 
 
 
