@@ -1,0 +1,16 @@
+import h5py
+from Scraping import web_pages
+import pandas as pd
+
+# Open the HDF5 file
+
+h5_file = h5py.File('Scraped data.h5', "r")
+
+# List all the groups in the file
+groups = list(h5_file.keys())
+print("Groups in the HDF5 file:")
+for group in groups:
+          print(group)
+
+
+

@@ -38,9 +38,18 @@ for index, row in web_pages.iterrows():
 
             # Save to HDF5 file
             create_new_file = True
-            hdf5_file_path = 'numeric_data_with_headers.h5'
+            hdf5_file_path = 'Scraped data.h5'
             with h5py.File(hdf5_file_path, 'a' if not create_new_file else 'w') as hf:
-                hf.create_dataset('numeric_data_with_headers', data=numeric_data_with_headers)
+                # Create a group for the URL
+                url_group = hf.create_group(url)
+
+                #store metadata for each url
+                url_group.attrs['page_type'] = page_type
+                url_group.attrs['compliance'] = compliance
+
+                # Create a dataset for the numeric data with headers for each URL
+                url_group.create_dataset('Scraped data', data=df.to_numpy())
+            
 
         else:
             print(f"No numeric data with headers found on the page {url}")
