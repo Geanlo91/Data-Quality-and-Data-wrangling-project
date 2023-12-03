@@ -37,8 +37,11 @@ for index, row in web_pages.iterrows():
             print(f"Numeric data with headers found on the page {url}: {numeric_data_with_headers}")
 
             # Save to HDF5 file
-            with h5py.File('data.h5', 'w') as hf:
+            create_new_file = True
+            hdf5_file_path = 'numeric_data_with_headers.h5'
+            with h5py.File(hdf5_file_path, 'a' if not create_new_file else 'w') as hf:
                 hf.create_dataset('numeric_data_with_headers', data=numeric_data_with_headers)
+
         else:
             print(f"No numeric data with headers found on the page {url}")
 
