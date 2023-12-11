@@ -3,14 +3,30 @@ from Scraping import web_pages
 import pandas as pd
 
 # Open the HDF5 file
-
 h5_file = h5py.File('Scraped data.h5', "r")
 
 # List all the groups in the file
 groups = list(h5_file.keys())
 print("Groups in the HDF5 file:")
 for group in groups:
-          print(group)
+    original_url = group
+    print(original_url)
+
+# Print all the data in the HDF5 file
+print("Data in the HDF5 file:")
+for group in groups:
+    original_url = group
+    print("Group: ", original_url)
+    for key in h5_file[group].keys():
+        print("Key: ", key)
+        print(h5_file[group][key])
+
+# Close the HDF5 file
+h5_file.close()
+
+
+
+
 
 
 

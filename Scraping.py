@@ -1,3 +1,4 @@
+import datetime
 import re
 import pandas as pd
 import requests
@@ -40,15 +41,18 @@ for index, row in web_pages.iterrows():
             create_new_file = True
             hdf5_file_path = 'Scraped data.h5'
             with h5py.File(hdf5_file_path, 'a' if not create_new_file else 'w') as hf:
-                # Create a group for the URL
+
+                # Create a group for the URL and replacing the forward slashes with underscores
                 url_group = hf.create_group(url)
 
                 #store metadata for each url
                 url_group.attrs['page_type'] = page_type
                 url_group.attrs['compliance'] = compliance
+                url_group.attrs['Scraping_date'] =datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
                 # Create a dataset for the numeric data with headers for each URL
-                url_group.create_dataset('Scraped data', data=df.to_numpy())
+                url_group.create_dataset('headers',data=df['header'].to_numpy())
+                url_group.create_dataset('values',data=df['value'].to_numpy())
             
 
         else:
@@ -56,4 +60,8 @@ for index, row in web_pages.iterrows():
 
     else:
         print(f"Page not found: {url}")
+
+
+
+        
 
