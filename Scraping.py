@@ -42,7 +42,7 @@ for index, row in web_pages.iterrows():
             hdf5_file_path = 'Scraped data.h5'
             with h5py.File(hdf5_file_path, 'a' if not create_new_file else 'w') as hf:
 
-                # Create a group for the URL and replacing the forward slashes with underscores
+                # Create a group for each URL saved IN THE CSV file
                 url_group = hf.create_group(url)
 
                 #store metadata for each url
