@@ -1,6 +1,6 @@
-url,type,compliance
+url,type,compliance,start_column_name
 
-https://www.weathersa.co.za,numeric,yes
-https://www.ticketpros.co.za/portal/web/index.php/event/29b76eba-b394-d701-178d-64da075e49db,numeric,yes
-https://www.lseg.com/en/ftse-russell/indices/jse#index-performance,numeric,yes
+https://www.weathersa.co.za,numeric,yes,Popular Cities
+https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list/index.html,numeric,yes,Bank Name
+https://www.marketwatch.com/markets?mod=top_nav,numeric,yes,TICKER
 

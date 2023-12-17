@@ -5,61 +5,65 @@ import requests
 from bs4 import BeautifulSoup
 import h5py
 
+def sanitize_url(url):
+    #Replace slashes and other special characters with underscores
+    return url.replace("https://", "").replace("/", "_").replace(":", "_")
+
 # Read CSV file
 web_pages = pd.read_csv('web_pages.csv')
 
-# Loop through each URL
-def new_func(url):
-    return requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+#Open the HDF5 file
+with h5py.File('Scraped data.h5', 'a') as hf:
 
-for index, row in web_pages.iterrows():
-    url = row['url']
-    page_type = row['type']
-    compliance = row['compliance']
+# Loop through each URL in the CSV file and reapce
+    for index, row in web_pages.iterrows():
+        url = row['url']
+        page_type = row['type']
+        compliance = row['compliance']
 
-    # Send HTTP request to the URL
-    response = new_func(url)
+        # Send HTTP request to the URL
+        response = requests.get(url)
 
-    # Check if the page exists
-    if response.status_code == 200:
-        # Parse the HTML response
-        soup = BeautifulSoup(response.text, 'html.parser')
+        # Check if the page exists
+        if response.status_code == 200:
+            # Parse the HTML response
+            soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Extract numeric data from the entire HTML content
-        html_content = soup.prettify()
-
-        # Adjust the regex pattern based on your HTML structure
-        matches = re.finditer(r'(\b[\w\s]+\b)\s*:\s*(\d+)', html_content)
-
-        numeric_data_with_headers = [(match.group(1), match.group(2)) for match in matches]
-
-        if numeric_data_with_headers:
-            df = pd.DataFrame(numeric_data_with_headers, columns=['header', 'value'])
+            # Extract numeric data from the entire HTML content
+            html_content = soup.prettify()
+            matches = re.finditer(r'(\b[\w\s]+\b)\s*:\s*(\d+)', html_content)
+            numeric_data_with_headers = [(match.group(1), match.group(2)) for match in matches]
             print(f"Numeric data with headers found on the page {url}: {numeric_data_with_headers}")
 
-            # Save to HDF5 file
-            create_new_file = True
-            hdf5_file_path = 'Scraped data.h5'
-            with h5py.File(hdf5_file_path, 'a' if not create_new_file else 'w') as hf:
+            if numeric_data_with_headers:
+                #check if a group for the URL already exists
+                if url in hf:
+                    url_group = hf[url]
+                else:
+                    url_group = hf.create_group(url)
 
-                # Create a group for each URL saved IN THE CSV file
-                url_group = hf.create_group(url)
-
-                #store metadata for each url
                 url_group.attrs['page_type'] = page_type
                 url_group.attrs['compliance'] = compliance
-                url_group.attrs['Scraping_date'] =datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                Scraping_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                # Create a dataset for the numeric data with headers for each URL
-                url_group.create_dataset('headers',data=df['header'].to_numpy())
-                url_group.create_dataset('values',data=df['value'].to_numpy())
-            
+
+                #save each key-value pair as a separate dataset
+                for i, (key, value) in enumerate(numeric_data_with_headers):
+                    dataset_name = f'{key}_{i}'
+                    #check if the dataset already exists
+                    if dataset_name not in url_group:
+                        url_group.create_dataset(dataset_name, data=value)
+                    else:
+                        continue
+
+                    ds = url_group.create_dataset(dataset_name, data=value)
+                    ds.attrs['Scraped_date'] = Scraping_date
+            else:
+                print(f"No numeric data with headers found on the page {url}")
 
         else:
-            print(f"No numeric data with headers found on the page {url}")
+            print(f"Page not found: {url}")
 
-    else:
-        print(f"Page not found: {url}")
 
 
 
