@@ -19,8 +19,8 @@ def scrape_data(urls):
             tables_list = pd.read_html(response.text)
             scraped_tables[url] = tables_list
             for i, table in enumerate(tables_list):
-                print(f"Scraped table {i+1} from {url}:")
-                #print(table.head())  # Print the first few rows of each table
+                #print(f"Scraped table {i+1} from {url}:")
+                print(table.head())  # Print the first few rows of each table
         except ValueError:
             print(f"No tables found in {url}")
             continue  # Skip this URL
@@ -34,7 +34,7 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:  # 'a' for append mode
         for url, table_list in scraped_tables.items():
             for i, table in enumerate(table_list):
-                table_name = f"{url.replace('.', '_').replace('/', '_')}_table_{i}_{scrape_date}"
+                table_name = url.replace('.', '_').replace('/', '_').replace(':', '_').replace('-', '_') + f"_table_{i}_{scrape_date}"
                 store.put(table_name, table)
 
 # Function to visualize data
