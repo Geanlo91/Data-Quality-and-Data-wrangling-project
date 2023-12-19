@@ -1,0 +1,30 @@
+import matplotlib.pyplot as plt
+import h5py   
+import numpy as np      
+
+# Load data from HDF5 file
+with h5py.File('Scraped data_file.h5', 'r') as hf:
+    for url in hf:
+        url_group = hf[url]
+        
+        # Handling missing attributes
+        type = url_group.attrs.get('type', 'Unknown Type')
+        compliance = url_group.attrs.get('compliance', 'Unknown Compliance')
+        
+        print(f"Page type: {type}, Compliance: {compliance}")
+        
+        for dataset_name in url_group:
+            ds = url_group[dataset_name]
+            Scraping_date = ds.attrs['Scraping_date']
+            print(f"Dataset: {dataset_name}, Scraped on: {Scraping_date}")
+            
+            # Assuming the dataset can be converted into a numpy array for plotting
+            data = np.array(ds)
+            
+            # Check if data is plottable
+            if data.ndim == 1 or (data.ndim == 2 and data.shape[1] == 1):
+                plt.plot(data)
+                plt.title(f"{dataset_name} - {url}")
+                plt.show()
+            else:
+                print(f"Dataset {dataset_name} is not suitable for line plotting.")

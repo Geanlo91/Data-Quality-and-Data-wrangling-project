@@ -1,6 +1,9 @@
-url,type,compliance,start_column_name
+URL,type,compliance,start_column_name
 
 https://www.weathersa.co.za,numeric,yes,Popular Cities
 https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list/index.html,numeric,yes,Bank Name
-https://www.marketwatch.com/markets?mod=top_nav,numeric,yes,TICKER
-
+https://www.premierleague.com/stats/top/players/goals,numerical,yes,Rank
+https://www.skysports.com/premier-league-table,numerical,yes,Team
+https://wdi.worldbank.org/table/4.2,numeric,yes,Gross domestic product
+https://wdi.worldbank.org/table/2.8,numeric,yes,Preprimary
+https://www.espncricinfo.com/records/team/team-results-summary/south-africa-3/one-day-internationals-2,numeric,yes,Team

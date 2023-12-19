@@ -6,6 +6,21 @@ import datetime
 import pandas as pd
 import re
 
+def is_numeric(df):
+        # Check if the dataframe contains only numeric data
+        for col in df.columns:
+                try:
+                  #attempt to convert the column to numeric
+                
+                  if not pd.to_numeric(df[col], errors='coerce').notnull().all():
+                                return False
+                except TypeError as e:
+                        #Log the error and type of the problematic data
+                        print(f"TypeError for column {col}: {e}")
+                        print(f"Data type of column {col}: {type(df[col])}")
+                        return False
+        return True
+
 def scrape_table(soup, start_column_name):
               print("starting to scrape tables")
               print("Looking for column:", start_column_name)
@@ -24,18 +39,30 @@ def scrape_table(soup, start_column_name):
                                                                 if cols:
                                                                       data.append(cols)
                                                   df = pd.DataFrame(data, columns=headers)
-                                                  return df
-              print("Table with specified column not found")
-              
+                                                  
 
-#Fallback to regex method if BeautifulSoup fails
+                                                  #Check if Data is predominantly numeric
+                                                  if is_numeric(df):
+                                                                   return df
+                                                  else:
+                                                                   print("Data is not predominantly numeric")
+                                                                   return None
+              print("Table with specified column not found")
+                                            
+
+              #Fallback to regex method if BeautifulSoup fails
               html_content = soup.prettify()
-              matches = re.finditer(r'(\b[\w\s]+\b)\s*:\s*(\d+)', html_content)
+              matches = re.finditer(r'([a-zA-Z0-9\s]+)\s*:\s*(\d+)', html_content)
               numeric_data_with_headers = [(match.group(1), match.group(2)) for match in matches]
               if numeric_data_with_headers:
-                                return pd.DataFrame(numeric_data_with_headers, columns=['Key', 'Value'])
+                                        return pd.DataFrame(numeric_data_with_headers, columns=['Key', 'Value'])
               print("No numeric data found with regex method")
               return None
+#print all scraped data
+def print_data(df):
+          print("Printing scraped data")
+          print(df)
+          return
 
 # Read CSV file
 web_pages = pd.read_csv('web_pages.csv')
