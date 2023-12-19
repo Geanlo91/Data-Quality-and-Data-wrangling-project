@@ -13,20 +13,23 @@ urls = pd.read_csv(csv_file)
 # Function to scrape data
 def scrape_data(urls):
     scraped_tables = {}
-    for url in urls['URL']:  # Assuming the URLs are in a column named 'URL'
+    for index, row in urls.iterrows():  # Iterate over rows in the CSV file
+        url = row['URL']
+        first_column_name = row['start_column_name']  # Get the first column name from CSV
         try:
             response = requests.get(url)
             tables_list = pd.read_html(response.text)
-            scraped_tables[url] = tables_list
-            for i, table in enumerate(tables_list):
-                #print(f"Scraped table {i+1} from {url}:")
-                print(table.head())  # Print the first few rows of each table
+            for table in tables_list:
+                # Check if the first column of the table matches the desired name
+                if table.columns[0] == first_column_name:
+                    scraped_tables[url] = table
+                    print(f"Scraped table from {url} with first column '{first_column_name}':")
+                    print(table.head())  # Print the first few rows of the table
+                    break  # Stop after finding the first matching table
         except ValueError:
             print(f"No tables found in {url}")
-            continue  # Skip this URL
         except Exception as e:
             print(f"Error occurred while scraping {url}: {e}")
-            continue  # Skip this URL in case of other exceptions
     return scraped_tables
 
 # Function to save data to HDF5
