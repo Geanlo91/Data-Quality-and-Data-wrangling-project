@@ -32,20 +32,32 @@ def scrape_data(urls):
             print(f"Error occurred while scraping {url}: {e}")
     return scraped_tables
 
+#Clean and convert data to numeric
+def clean_and_convert_to_numeric(df):
+    for col in df.columns:
+        if df[col].dtype == object:
+            # Remove the degree symbol and convert to numeric
+            df[col] = df[col].str.replace('°', '', regex=False).str.strip()
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+    return df
+
 # Function to save data to HDF5
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
-    with pd.HDFStore(hdf5_file, 'a') as store:  # 'a' for append mode
-        for url, table_list in scraped_tables.items():
-            for i, table in enumerate(table_list):
-                table_name = url.replace('.', '_').replace('/', '_').replace(':', '_').replace('-', '_') + f"_table_{i}_{scrape_date}"
+    with pd.HDFStore(hdf5_file, 'a') as store:
+        for url_counter, (url, table) in enumerate(scraped_tables.items(), start=1):
+            # Ensure the table is a DataFrame before attempting to save
+            if isinstance(table, pd.DataFrame):
+                table_name = f"URL_{url_counter}_date_{scrape_date}"
                 store.put(table_name, table)
+            else:
+                print(f"Skipped saving non-DataFrame data from {url}")
 
 # Function to visualize data
 def visualize_data(scraped_tables):
-    for url, table_list in scraped_tables.items():
-        for table in table_list:
+    for url, table in scraped_tables.items():
+        if isinstance(table, pd.DataFrame):
             if table.empty or len(table.columns) < 2 or len(table.index) < 4:
-                continue  # Skip tables that are empty or have fewer than 2 columns or 2 rows
+                continue  # Skip tables that are empty or have fewer than 2 columns or 4 rows
             
             try:
                 # Check if the second column is numeric for plotting
@@ -63,7 +75,8 @@ def visualize_data(scraped_tables):
                         plt.show()
             except Exception as e:
                 print(f"Error plotting table from {url}: {e}")
-                continue  # Skip this table in case of an error
+        else:
+            print(f"Data from {url} is not a DataFrame and cannot be plotted.")
 
 # HDF5 file name
 hdf5_file = 'scraped_data2.h5'
@@ -73,6 +86,13 @@ number_of_days = 5  # Replace with your desired number of days
 for _ in range(number_of_days):
     scrape_date = datetime.now().strftime("%Y%m%d")
     scraped_data = scrape_data(urls)
+
+    # Clean and convert each scraped DataFrame
+    for url, table in scraped_data.items():
+        if isinstance(table, pd.DataFrame):
+            scraped_data[url] = clean_and_convert_to_numeric(table)
+
+    # Save to HDF5 and visualize after processing all URLs
     save_to_hdf5(scraped_data, hdf5_file, scrape_date)
     visualize_data(scraped_data)
 
