@@ -23,7 +23,7 @@ def scrape_data(urls):
                 # Check if the first column of the table matches the desired name
                 if table.columns[0] == first_column_name:
                     scraped_tables[url] = table
-                    print(f"Scraped table from {url} with first column '{first_column_name}':")
+                    print(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                     print(table.head())  # Print the first few rows of the table
                     break  # Stop after finding the first matching table
         except ValueError:
