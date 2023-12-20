@@ -63,15 +63,15 @@ def visualize_data(scraped_tables):
                 # Check if the second column is numeric for plotting
                 if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
                     plt.figure()
-                    table.plot(kind='line')  # Line plot for numerical data
-                    plt.title(f"Line plot from {url}")
+                    table.plot(kind='bar')  # 
+                    plt.title(f"Bar plot from {url}")
                     plt.show()
                 else:
-                    # Try a bar plot if the first column is categorical and the second column is numeric
+                    # Try a Line plot if the first column is categorical and the second column is numeric
                     if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
                         plt.figure()
-                        table.iloc[:, :2].plot(kind='bar', x=table.columns[0])
-                        plt.title(f"Bar plot from {url}")
+                        table.iloc[:, :2].plot(kind='Line', x=table.columns[0])
+                        plt.title(f"Line plot from {url}")
                         plt.show()
             except Exception as e:
                 print(f"Error plotting table from {url}: {e}")
@@ -80,7 +80,7 @@ def visualize_data(scraped_tables):
 
 # HDF5 file name
 hdf5_file = 'scraped_data2.h5'
-
+ 
 # Example of scraping for multiple days (adjust as needed)
 number_of_days = 5  # Replace with your desired number of days
 for _ in range(number_of_days):
