@@ -24,7 +24,7 @@ def scrape_data(urls):
                 if table.columns[0] == first_column_name:
                     scraped_tables[url] = table
                     print(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-                    print(table.head())  # Print the first few rows of the table
+                    #print(table.head())  # Print the first few rows of the table
                     break  # Stop after finding the first matching table
         except ValueError:
             print(f"No tables found in {url}")
@@ -33,11 +33,11 @@ def scrape_data(urls):
     return scraped_tables
 
 #Clean and convert data to numeric
-def clean_and_convert_to_numeric(df):
-    for col in df.columns:
-        if df[col].dtype == object:
+def clean_and_convert_to_numeric(df,columns_to_convert):
+    for col in columns_to_convert:
+        if col in df.columns and df[col].dtype == 'object':
             # Remove the degree symbol and convert to numeric
-            df[col] = df[col].str.replace('°', '', regex=False).str.strip()
+            df[col] = df[col].str.replace('°', '', regex=True).str.strip()
             df[col] = pd.to_numeric(df[col], errors='coerce')
     return df
 
@@ -46,8 +46,10 @@ def clean_and_convert_to_numeric(df):
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url_counter, (url, table) in enumerate(scraped_tables.items(), start=1):
-            # Ensure the table is a DataFrame before attempting to save
             if isinstance(table, pd.DataFrame):
+                # Print a preview of the DataFrame
+                print(f"Preview of data being saved for {url}:\n", table.head())
+                
                 table_name = f"URL_{url_counter}_date_{scrape_date}"
                 store.put(table_name, table)
             else:
@@ -93,7 +95,16 @@ for _ in range(number_of_days):
     # Clean and convert each scraped DataFrame
     for url, table in scraped_data.items():
         if isinstance(table, pd.DataFrame):
-            scraped_data[url] = clean_and_convert_to_numeric(table)
+            # Specify which columns to convert for each table based on its structure
+            if 'weathersa.co.za' in url:
+                columns_to_convert = ['Today', 'Thursday', 'Friday']  # Example columns
+            elif 'espncricinfo.com' in url:
+                columns_to_convert = ['Margin', 'Balls Rem', 'Target', 'Overs', 'Max']  # Example columns
+            else:
+                columns_to_convert = []
+            
+            scraped_data[url]  = clean_and_convert_to_numeric(table, columns_to_convert)
+
 
     # Save to HDF5 and visualize after processing all URLs
     save_to_hdf5(scraped_data, hdf5_file, scrape_date)

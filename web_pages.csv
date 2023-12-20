@@ -4,3 +4,5 @@ https://www.weathersa.co.za,numeric,yes,Popular Cities
 https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list/index.html,numeric,yes,Bank Name
 https://www.skysports.com/premier-league-table,numerical,yes,Team
 https://www.espncricinfo.com/records/trophy/team-largest-margins/pakistan-super-league-205,numeric,yes,Winner
+http://fred.csir.co.za/project/tmg/agrohydrology_atlas/atlas_12t.html,numeric,yes,Province
+https://www.fao.org/3/y5998e/y5998e07.htm,numeric,yes,Crop
