@@ -1,0 +1,42 @@
+import requests
+import h5py
+import matplotlib.pyplot as plt
+import datetime
+from datetime import datetime
+import pandas as pd
+
+
+hdf5_file  = 'scraped_data2.h5'
+ 
+#Read data from HDF5 and convert to numerical data
+def read_data(hdf5_file):
+    scraped_data = {}
+    with pd.HDFStore(hdf5_file, 'r') as store:
+        for key in store.keys():
+            scraped_data[key] = store[key]
+    return scraped_data
+
+
+def visualize_weather_data(weather_table):
+    # Assuming 'weather_table' is your DataFrame for weather data
+    weather_table[['Today High', 'Today Low']] = weather_table['Today'].str.split(' ', expand=True)
+
+# Convert 'Today High' and 'Today Low' to numeric after removing the degree symbol
+    weather_table['Today High'] = weather_table['Today High'].str.replace('°', '').astype(float)
+    weather_table['Today Low'] = weather_table['Today Low'].str.replace('°', '').astype(float)
+
+    # Example plotting code
+    plt.figure(figsize=(10, 6))
+    plt.bar(weather_table['Popular Cities'], weather_table['Today High'], label='High Temperature')
+    plt.bar(weather_table['Popular Cities'], weather_table['Today Low'], label='Low Temperature', alpha=0.7)
+    plt.xlabel('Cities')
+    plt.ylabel('Temperature (°C)')
+    plt.title('High and Low Temperatures in Cities')
+    plt.legend()
+    plt.xticks(rotation=45)
+    plt.show()
+
+print(read_data(hdf5_file))
+
+
+ 

@@ -41,6 +41,7 @@ def clean_and_convert_to_numeric(df):
             df[col] = pd.to_numeric(df[col], errors='coerce')
     return df
 
+
 # Function to save data to HDF5
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
@@ -52,25 +53,27 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
             else:
                 print(f"Skipped saving non-DataFrame data from {url}")
 
+
+
 # Function to visualize data
 def visualize_data(scraped_tables):
     for url, table in scraped_tables.items():
         if isinstance(table, pd.DataFrame):
-            if table.empty or len(table.columns) < 2 or len(table.index) < 4:
+            if table.empty or len(table.columns) < 2 or len(table.index) < 2:
                 continue  # Skip tables that are empty or have fewer than 2 columns or 4 rows
             
             try:
                 # Check if the second column is numeric for plotting
                 if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
                     plt.figure()
-                    table.plot(kind='bar')  # 
-                    plt.title(f"Bar plot from {url}")
+                    table.plot(kind='box', x=table.columns[0], y=table.columns[1])
+                    plt.title(f"plot from {url}")
                     plt.show()
                 else:
                     # Try a Line plot if the first column is categorical and the second column is numeric
                     if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
                         plt.figure()
-                        table.iloc[:, :2].plot(kind='Line', x=table.columns[0])
+                        table.iloc[:, :2].plot(kind='bar', x=table.columns[0], y=table.columns[1])
                         plt.title(f"Line plot from {url}")
                         plt.show()
             except Exception as e:
