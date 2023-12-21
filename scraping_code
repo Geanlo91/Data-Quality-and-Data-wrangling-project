@@ -1,5 +1,5 @@
 import pandas as pd
-import requests
+import requests 
 import h5py
 import matplotlib.pyplot as plt
 import datetime
@@ -13,7 +13,7 @@ urls = pd.read_csv(csv_file)
 # Function to scrape data
 def scrape_data(urls):
     scraped_tables = {}
-    for index, row in urls.iterrows():  # Iterate over rows in the CSV file
+    for _, row in urls.iterrows():  # Iterate over rows in the CSV file
         url = row['URL']
         first_column_name = row['start_column_name']  # Get the first column name from CSV
         try:
@@ -24,7 +24,7 @@ def scrape_data(urls):
                 if table.columns[0] == first_column_name:
                     scraped_tables[url] = table
                     print(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-                    #print(table.head())  # Print the first few rows of the table
+                    print(table.head())  # Print the first few rows of the table
                     break  # Stop after finding the first matching table
         except ValueError:
             print(f"No tables found in {url}")
@@ -32,78 +32,66 @@ def scrape_data(urls):
             print(f"Error occurred while scraping {url}: {e}")
     return scraped_tables
 
-#Clean and convert data to numeric
-def clean_and_convert_to_numeric(df,columns_to_convert):
-    for col in columns_to_convert:
-        if col in df.columns and df[col].dtype == 'object':
-            # Remove the degree symbol and convert to numeric
-            df[col] = df[col].str.replace('°', '', regex=True).str.strip()
-            df[col] = pd.to_numeric(df[col], errors='coerce')
-    return df
+# Function to clean and convert data
+def clean_and_convert_to_numeric(table, columns_to_convert):
+    for column in columns_to_convert:
+        if column in table:
+            print(f"Converting {column} to numeric data")
+            table[column] = table[column].str.replace('°', '')
+            table[column] = pd.to_numeric(table[column], errors='coerce')
+            print(table[column].head())
+    return table
 
-
-# Function to save data to HDF5
+#Saving scraped data to HDF5 file
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url_counter, (url, table) in enumerate(scraped_tables.items(), start=1):
+            # Ensure the table is a DataFrame before attempting to save
             if isinstance(table, pd.DataFrame):
-                # Print a preview of the DataFrame
-                print(f"Preview of data being saved for {url}:\n", table.head())
-                
                 table_name = f"URL_{url_counter}_date_{scrape_date}"
                 store.put(table_name, table)
+
+                # Save URL and date as attributes
+                store.get_storer(table_name).attrs.metadata = {'url': url, 'scrape_date': scrape_date}
             else:
                 print(f"Skipped saving non-DataFrame data from {url}")
-
-
-
+           
+        
 # Function to visualize data
 def visualize_data(scraped_tables):
     for url, table in scraped_tables.items():
-        if isinstance(table, pd.DataFrame):
-            if table.empty or len(table.columns) < 2 or len(table.index) < 2:
-                continue  # Skip tables that are empty or have fewer than 2 columns or 4 rows
-            
+        print(f"Visualizing data from {url} with shape {table.shape}")
+        if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
             try:
                 # Check if the second column is numeric for plotting
                 if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
                     plt.figure()
-                    table.plot(kind='box', x=table.columns[0], y=table.columns[1])
-                    plt.title(f"plot from {url}")
+                    #Using a bar plot as default
+                    table.plot(kind='bar', x=table.columns[0], y=table.columns[1])
+                    plt.title(f"Bar plot from {url}")
                     plt.show()
                 else:
-                    # Try a Line plot if the first column is categorical and the second column is numeric
-                    if pd.api.types.is_numeric_dtype(table.iloc[:, 1]):
-                        plt.figure()
-                        table.iloc[:, :2].plot(kind='bar', x=table.columns[0], y=table.columns[1])
-                        plt.title(f"Line plot from {url}")
-                        plt.show()
+                    print(f"Skipped plotting from {url} because second column is not numeric")
             except Exception as e:
-                print(f"Error plotting table from {url}: {e}")
+                print(f"Error occurred while plotting {url}: {e}")
         else:
-            print(f"Data from {url} is not a DataFrame and cannot be plotted.")
+            print(f"Skipped plotting from {url}")
+               
 
 # HDF5 file name
 hdf5_file = 'scraped_data2.h5'
  
-# Example of scraping for multiple days (adjust as needed)
-number_of_days = 5  # Replace with your desired number of days
-for _ in range(number_of_days):
+#scraping count
+number_of_times = 1
+for _ in range(number_of_times):
     scrape_date = datetime.now().strftime("%Y%m%d")
     scraped_data = scrape_data(urls)
 
     # Clean and convert each scraped DataFrame
     for url, table in scraped_data.items():
         if isinstance(table, pd.DataFrame):
-            # Specify which columns to convert for each table based on its structure
-            if 'weathersa.co.za' in url:
-                columns_to_convert = ['Today', 'Thursday', 'Friday']  # Example columns
-            elif 'espncricinfo.com' in url:
-                columns_to_convert = ['Margin', 'Balls Rem', 'Target', 'Overs', 'Max']  # Example columns
-            else:
-                columns_to_convert = []
-            
-            scraped_data[url]  = clean_and_convert_to_numeric(table, columns_to_convert)
+            columns_to_convert = ['Today', 'Friday', 'Saturday']
+            scraped_data[url] = clean_and_convert_to_numeric(table, columns_to_convert)
 
 
     # Save to HDF5 and visualize after processing all URLs
