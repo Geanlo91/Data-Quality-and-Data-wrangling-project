@@ -1,9 +1,13 @@
 import pandas as pd
+import numpy as np
 import requests 
 import h5py
 import matplotlib.pyplot as plt
 import datetime
 from datetime import datetime 
+import matplotlib.collections as mcol
+from matplotlib.legend_handler import HandlerLineCollection, HandlerTuple
+from matplotlib.lines import Line2D
 
 
 # Step 1: Read URLs from CSV
@@ -64,18 +68,28 @@ def visualize_data(scraped_tables):
         if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
             try:
                 # Check if the third column is numeric for plotting
-                if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
+                if pd.api.types.is_numeric_dtype(table.iloc[:, 0]):
                     plt.figure()
                     #Using a bar plot as default
                     table.plot(kind='bar', x=table.columns[1])
                     plt.title(f"Bar plot from {url}")
                     plt.show()
 
-                elif pd.api.types.is_numeric_dtype(table.iloc[:, 0]):
+                elif 'In Kilometres' in table.columns:
+                    # Plot 2D line graph
                     plt.figure()
-                    table.plot(kind='Bar', x=table.columns[0])
-                    plt.title(f"Bar plot from {url}")
+                    #Convert table values to numeric
+                    table.iloc[:, 1:] = table.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
+                    for i in range(1, 4):
+                        plt.plot(table.iloc[:, 0], table.iloc[:, i], label=table.columns[i])
+                        plt.yticks(np.arange(0, 2500, 200))
+                        
+                        plt.xticks(rotation=90)
+                        plt.title(f"2D line graph from {url}")
+                        plt.legend()
                     plt.show()
+
+                    
                 else:
                     print(f"Skipped plotting from {url} because third column is not numeric")
             except Exception as e:
