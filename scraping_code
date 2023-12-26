@@ -68,14 +68,21 @@ def visualize_data(scraped_tables):
         if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
             try:
                 # Check if the third column is numeric for plotting
-                if pd.api.types.is_numeric_dtype(table.iloc[:, 0]):
+                if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
                     plt.figure()
                     #Using a bar plot as default
-                    table.plot(kind='bar', x=table.columns[1])
+                    table.plot(kind='bar', x=table.columns[1], width=1.2)                    
+                    
                     plt.title(f"Bar plot from {url}")
+                    # Plot legend outside the plot area
+                    plt.legend(bbox_to_anchor=(1.04, 0.5), loc="center left", borderaxespad=0)
+                    #Widen the shape of a group of bars
+                    
+                    #plt.xticks(np.arange(len(table.iloc[:, 0])))
+                    
                     plt.show()
 
-                elif 'In Kilometres' in table.columns:
+                elif table.columns[2] in table.columns:
                     # Plot 2D line graph
                     plt.figure()
                     #Convert table values to numeric
