@@ -8,7 +8,10 @@ from datetime import datetime
 import matplotlib.collections as mcol
 from matplotlib.legend_handler import HandlerLineCollection, HandlerTuple
 from matplotlib.lines import Line2D
+import logging
 
+#Logging setup
+logging.basicConfig(filename='scraping.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')    
 
 # Step 1: Read URLs from CSV
 csv_file = 'web_pages.csv'  # Replace with your CSV file path
@@ -32,11 +35,13 @@ def scrape_data(urls):
                 # Check if the first column of the table matches the desired name
                 if table.columns[0] == first_column_name:
                     scraped_tables[url] = table
-                    print(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                    logging.info(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                    
                     # Print the first few rows of the table
                     print(table.head())  
                     break
         except ValueError:
+            logging.error(f"No tables found in {url}")
             print(f"No tables found in {url}")
         except Exception as e:
             print(f"Error occurred while scraping {url}: {e}")
@@ -45,69 +50,30 @@ def scrape_data(urls):
 #Saving scraped data to HDF5 file
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
-        for url_counter, (url, table) in enumerate(scraped_tables.items(), start=1):
-
-            # Ensure the table is a DataFrame before attempting to save
+        for url, (url, table) in enumerate(scraped_tables.items(), start=1):
             if isinstance(table, pd.DataFrame):
-                table_name = f"URL_{url_counter}_date_{scrape_date}"
-                store.put(table_name, table)
+                group_name = f"URL_:{url}" + f"\nScrapped date: {scrape_date}"
+                store.put(group_name, table)
 
                 # Save URL and date as attributes
-                store.get_storer(table_name).attrs.metadata = {'url': url, 'scrape_date': scrape_date}
+                store.get_storer(group_name).attrs.metadata = {f"url_{url}": url, 'date': scrape_date}
+                logging.info(f"Saved table from: {url} scrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             else:
+                logging.error(f"Skipped saving non-DataFrame data from {url}")
                 print(f"Skipped saving non-DataFrame data from {url}")
            
-        
-# Function to visualize data
-def visualize_data(scraped_tables):
-    for url, table in scraped_tables.items():
-        print(f"Visualizing data from {url} with shape {table.shape}")
-        if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
-            try:
-                # Checking if the third column is numeric for plotting
-                if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
-                    plt.figure()
-                    #Using a bar plot as default
-                    table.plot(kind='bar', x=table.columns[1], width=1.2)                    
-                    
-                    plt.title(f"Bar plot from {url}")
-                    # Plot legend outside the plot area
-                    plt.legend(bbox_to_anchor=(1.04, 0.5), loc="center left", borderaxespad=0)
-                    plt.show()
-
-                elif table.columns[2] in table.columns:
-                    # Plot 2D line graph
-                    plt.figure()
-                    #Convert table values to numeric
-                    table.iloc[:, 1:] = table.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
-                    for i in range(1, 4):
-                        plt.plot(table.iloc[:, 0], table.iloc[:, i], label=table.columns[i])
-                        plt.yticks(np.arange(0, 2500, 200))
-                        
-                        plt.xticks(rotation=90)
-                        plt.title(f"2D line graph from {url}")
-                        plt.legend()
-                    plt.show()
-
-                    
-                else:
-                    print(f"Skipped plotting from {url} because third column is not numeric")
-            except Exception as e:
-                print(f"Error occurred while plotting {url}: {e}")
-        else:
-            print(f"Skipped plotting from {url}")
-               
 
 # HDF5 file name
-hdf5_file = 'scraped_data2.h5'
+hdf5_file = 'scraped_data.h5'
  
 #scraping count
 number_of_times = 1
 for _ in range(number_of_times):
-    scrape_date = datetime.now().strftime("%Y%m%d")
+    scrape_date = datetime.now().strftime("%Y-%m-%d")
     scraped_data = scrape_data(urls)
 
     # Save to HDF5 and visualize after processing all URLs
     save_to_hdf5(scraped_data, hdf5_file, scrape_date)
-    visualize_data(scraped_data)
+    print(f"Saved scraped data to {hdf5_file}")
+    
 

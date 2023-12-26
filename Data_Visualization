@@ -1,0 +1,61 @@
+import pandas as pd
+import numpy as np
+import requests
+import h5py
+import matplotlib.pyplot as plt
+import datetime
+from datetime import datetime
+
+
+
+
+
+hdf5_file = "scraped_data.h5"
+
+def visualize_data(scraped_tables):
+    for url, table in scraped_tables.items():
+        print(f"Visualizing data from {url} with shape {table.shape}")
+        if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
+            try:
+                # Checking if the third column is numeric for plotting
+                if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
+                    plt.figure()
+                    #Using a bar plot as default
+                    table.plot(kind='bar', x=table.columns[1], width=0.8)
+                    
+                    plt.title(f"Bar plot from {url}")
+                    # Plot legend outside the plot area
+                    plt.legend(bbox_to_anchor=(1.04, 0.5), loc="center left", borderaxespad=0)
+                    plt.show()
+
+                elif table.columns[2] in table.columns:
+                    # Plot 2D line graph
+                    plt.figure()
+                    #Convert table values to numeric
+                    table.iloc[:, 1:] = table.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
+                    for i in range(1, 4):
+                        plt.plot(table.iloc[:, 0], table.iloc[:, i], label=table.columns[i])
+                        plt.yticks(np.arange(0, 2500, 200))
+                        
+                        plt.xticks(rotation=90)
+                        plt.title(f"2D line graph from {url}")
+                        plt.legend()
+                    plt.show()
+
+                    
+                else:
+                    print(f"Skipped plotting from {url} because third column is not numeric")
+            except Exception as e:
+                print(f"Error occurred while plotting {url}: {e}")
+        else:
+            print(f"Skipped plotting from {url}")
+
+def read_data(hdf5_file):
+          scraped_data = {}
+          with pd.HDFStore(hdf5_file, 'r') as store:
+              for key in store.keys():
+                    scraped_data[key] = store[key]
+          return scraped_data
+
+scraped_data = read_data(hdf5_file)
+visualize_data(scraped_data)
