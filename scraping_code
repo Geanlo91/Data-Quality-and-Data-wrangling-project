@@ -17,19 +17,25 @@ urls = pd.read_csv(csv_file)
 # Function to scrape data
 def scrape_data(urls):
     scraped_tables = {}
-    for _, row in urls.iterrows():  # Iterate over rows in the CSV file
+
+    # Iterate over rows in the CSV file
+    for _, row in urls.iterrows():  
         url = row['URL']
-        first_column_name = row['start_column_name']  # Get the first column name from CSV
+
+        # Get the first column name from CSV file
+        first_column_name = row['start_column_name']  
         try:
             response = requests.get(url)
             tables_list = pd.read_html(response.text)
             for table in tables_list:
+
                 # Check if the first column of the table matches the desired name
                 if table.columns[0] == first_column_name:
                     scraped_tables[url] = table
                     print(f"\nScraped table from: {url} \nfirst column: '{first_column_name} \nscrapped date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-                    print(table.head())  # Print the first few rows of the table
-                    break  # Stop after finding the first matching table
+                    # Print the first few rows of the table
+                    print(table.head())  
+                    break
         except ValueError:
             print(f"No tables found in {url}")
         except Exception as e:
@@ -50,6 +56,7 @@ def clean_and_convert_to_numeric(table, columns_to_convert):
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url_counter, (url, table) in enumerate(scraped_tables.items(), start=1):
+
             # Ensure the table is a DataFrame before attempting to save
             if isinstance(table, pd.DataFrame):
                 table_name = f"URL_{url_counter}_date_{scrape_date}"
@@ -67,7 +74,7 @@ def visualize_data(scraped_tables):
         print(f"Visualizing data from {url} with shape {table.shape}")
         if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
             try:
-                # Check if the third column is numeric for plotting
+                # Checking if the third column is numeric for plotting
                 if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
                     plt.figure()
                     #Using a bar plot as default
@@ -76,10 +83,6 @@ def visualize_data(scraped_tables):
                     plt.title(f"Bar plot from {url}")
                     # Plot legend outside the plot area
                     plt.legend(bbox_to_anchor=(1.04, 0.5), loc="center left", borderaxespad=0)
-                    #Widen the shape of a group of bars
-                    
-                    #plt.xticks(np.arange(len(table.iloc[:, 0])))
-                    
                     plt.show()
 
                 elif table.columns[2] in table.columns:
@@ -113,13 +116,6 @@ number_of_times = 1
 for _ in range(number_of_times):
     scrape_date = datetime.now().strftime("%Y%m%d")
     scraped_data = scrape_data(urls)
-
-    # Clean and convert each scraped DataFrame
-    for url, table in scraped_data.items():
-        if isinstance(table, pd.DataFrame):
-            columns_to_convert = ['Today', 'Friday', 'Saturday']
-            scraped_data[url] = clean_and_convert_to_numeric(table, columns_to_convert)
-
 
     # Save to HDF5 and visualize after processing all URLs
     save_to_hdf5(scraped_data, hdf5_file, scrape_date)
