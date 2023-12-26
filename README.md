@@ -25,11 +25,10 @@ This project involves scraping data from multiple URLs saved in a CSV file, clea
 The `scraping.py` file contains the following functions:
 
 - `scrape_data(urls)`: Scrapes data from the provided URLs and returns a dictionary of scraped tables.
-- `clean_and_convert_to_numeric(df)`: Cleans and converts the data in a DataFrame to numeric format.
 - `save_to_hdf5(scraped_tables, hdf5_file, scrape_date)`: Saves the scraped tables to an HDF5 file.
 - `visualize_data(scraped_tables)`: Visualizes the scraped tables using line plots and bar plots.
 
-The code includes an example of scraping for multiple days. You can adjust the `number_of_days` variable to specify the desired number of days.
+The code includes a scraping count which dirtemines the number os times the pages are scrapped when the code is run. You can adjust the `number_of_times` variable to specify the desired number of times.
 
 ## Output
 

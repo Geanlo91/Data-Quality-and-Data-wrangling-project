@@ -42,16 +42,6 @@ def scrape_data(urls):
             print(f"Error occurred while scraping {url}: {e}")
     return scraped_tables
 
-# Function to clean and convert data
-def clean_and_convert_to_numeric(table, columns_to_convert):
-    for column in columns_to_convert:
-        if column in table:
-            print(f"Converting {column} to numeric data")
-            table[column] = table[column].str.replace('°', '')
-            table[column] = pd.to_numeric(table[column], errors='coerce')
-            print(table[column].head())
-    return table
-
 #Saving scraped data to HDF5 file
 def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
