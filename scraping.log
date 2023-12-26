@@ -925,3 +925,18 @@ scrapped date: 2023-12-26 13:13:57
 2023-12-26 13:13:59,676:INFO:Saved table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 scrapped date: 2023-12-26 13:13:59
 2023-12-26 13:13:59,692:INFO:Saved table from: https://www.skysports.com/premier-league-table scrapped date: 2023-12-26 13:13:59
 2023-12-26 13:13:59,703:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2023-12-26 13:13:59
+2023-12-26 13:19:22,700:INFO:
+Scraped table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 
+first column: 'In Kilometres 
+scrapped date: 2023-12-26 13:19:22
+2023-12-26 13:19:22,929:INFO:
+Scraped table from: https://www.skysports.com/premier-league-table 
+first column: '# 
+scrapped date: 2023-12-26 13:19:22
+2023-12-26 13:19:23,145:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2023-12-26 13:19:23
+2023-12-26 13:19:27,518:INFO:Saved table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 scrapped date: 2023-12-26 13:19:27
+2023-12-26 13:19:27,570:INFO:Saved table from: https://www.skysports.com/premier-league-table scrapped date: 2023-12-26 13:19:27
+2023-12-26 13:19:27,607:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2023-12-26 13:19:27

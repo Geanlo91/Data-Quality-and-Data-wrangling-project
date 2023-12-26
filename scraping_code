@@ -52,7 +52,7 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url, (url, table) in enumerate(scraped_tables.items(), start=1):
             if isinstance(table, pd.DataFrame):
-                group_name = f"URL_:{url}" + f"\nScrapped date: {scrape_date}"
+                group_name = f"URL_:{url}" + f"Scrapped date: {scrape_date}"
                 store.put(group_name, table)
 
                 # Save URL and date as attributes
