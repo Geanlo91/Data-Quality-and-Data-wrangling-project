@@ -940,3 +940,33 @@ scrapped date: 2023-12-26 13:19:23
 2023-12-26 13:19:27,518:INFO:Saved table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 scrapped date: 2023-12-26 13:19:27
 2023-12-26 13:19:27,570:INFO:Saved table from: https://www.skysports.com/premier-league-table scrapped date: 2023-12-26 13:19:27
 2023-12-26 13:19:27,607:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2023-12-26 13:19:27
+2023-12-26 13:24:32,908:INFO:
+Scraped table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 
+first column: 'In Kilometres 
+scrapped date: 2023-12-26 13:24:32
+2023-12-26 13:24:33,118:INFO:
+Scraped table from: https://www.skysports.com/premier-league-table 
+first column: '# 
+scrapped date: 2023-12-26 13:24:33
+2023-12-26 13:24:33,309:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2023-12-26 13:24:33
+2023-12-26 13:24:36,092:INFO:Saved table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 scrapped date: 2023-12-26 13:24:36
+2023-12-26 13:24:36,116:INFO:Saved table from: https://www.skysports.com/premier-league-table scrapped date: 2023-12-26 13:24:36
+2023-12-26 13:24:36,116:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2023-12-26 13:24:36
+2023-12-26 13:26:00,480:INFO:
+Scraped table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 
+first column: 'In Kilometres 
+scrapped date: 2023-12-26 13:26:00
+2023-12-26 13:26:00,713:INFO:
+Scraped table from: https://www.skysports.com/premier-league-table 
+first column: '# 
+scrapped date: 2023-12-26 13:26:00
+2023-12-26 13:26:01,278:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2023-12-26 13:26:01
+2023-12-26 13:26:06,995:INFO:Saved table from: https://www.gardenroute.com/South-Africa-Distance-Chart_content_op_view_id_2938 scrapped date: 2023-12-26 13:26:06
+2023-12-26 13:26:07,035:INFO:Saved table from: https://www.skysports.com/premier-league-table scrapped date: 2023-12-26 13:26:07
+2023-12-26 13:26:07,084:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2023-12-26 13:26:07
