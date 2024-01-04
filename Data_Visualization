@@ -1,61 +1,71 @@
 import pandas as pd
 import numpy as np
-import requests
-import h5py
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-import datetime
-from datetime import datetime
-
-
-
-
+import re   
 
 hdf5_file = "scraped_data.h5"
+df = pd.DataFrame()
 
-def visualize_data(scraped_tables):
-    for url, table in scraped_tables.items():
-        print(f"Visualizing data from {url} with shape {table.shape}")
-        if isinstance(table, pd.DataFrame) and not table.empty and len (table.columns) >= 2:
-            try:
-                # Checking if the third column is numeric for plotting
-                if pd.api.types.is_numeric_dtype(table.iloc[:, 2]):
-                    plt.figure()
-                    #Using a bar plot as default
-                    table.plot(kind='bar', x=table.columns[1], width=0.8)
-                    
-                    plt.title(f"Bar plot from {url}")
-                    # Plot legend outside the plot area
-                    plt.legend(bbox_to_anchor=(1.04, 0.5), loc="center left", borderaxespad=0)
-                    plt.show()
 
-                elif table.columns[2] in table.columns:
-                    # Plot 2D line graph
-                    plt.figure()
-                    #Convert table values to numeric
-                    table.iloc[:, 1:] = table.iloc[:, 1:].apply(pd.to_numeric, errors='coerce')
-                    for i in range(1, 4):
-                        plt.plot(table.iloc[:, 0], table.iloc[:, i], label=table.columns[i])
-                        plt.yticks(np.arange(0, 2500, 200))
-                        
-                        plt.xticks(rotation=90)
-                        plt.title(f"2D line graph from {url}")
-                        plt.legend()
-                    plt.show()
+def sanitize_name(name):
+    # Replace non-alphanumeric characters with underscores
+    sanitized = re.sub(r'\W+', '_', name)
+    # Ensure that the name doesn't start with a digit
+    if sanitized[0].isdigit():
+        sanitized = '_' + sanitized
+    return sanitized
+ 
+#define function which collects first row of each URL for each date
+def aggregate_first_rows(hdf5_file, target_urls):
+    # Sanitize the target URLs
+    sanitized_urls = [sanitize_name(url) for url in target_urls]
 
-                    
-                else:
-                    print(f"Skipped plotting from {url} because third column is not numeric")
-            except Exception as e:
-                print(f"Error occurred while plotting {url}: {e}")
+    # Initialize dictionaries for aggregated data and column names
+    aggregated_data = {url: [] for url in sanitized_urls}
+    column_names = {url: None for url in sanitized_urls}
+
+    with pd.HDFStore(hdf5_file, 'r') as store:
+        for key in store.keys():
+            # Remove the leading slash and sanitize the key
+            sanitized_key = sanitize_name(key[1:])
+
+            if sanitized_key in sanitized_urls:
+                data = store[key]
+                metadata = store.get_storer(key).attrs.metadata
+                url = metadata.get('url', '')
+
+                first_row = data.head(1)
+                if column_names[sanitized_key] is None:
+                    column_names[sanitized_key] = first_row.columns
+                aggregated_data[sanitized_key].append(first_row)
+
+    # Combine all first rows into separate DataFrames for each sanitized URL
+    for sanitized_url in sanitized_urls:
+        if aggregated_data[sanitized_url]:
+            aggregated_data[sanitized_url] = pd.concat(aggregated_data[sanitized_url])[column_names[sanitized_url]]
         else:
-            print(f"Skipped plotting from {url}")
+            aggregated_data[sanitized_url] = pd.DataFrame(columns=column_names[sanitized_url])
+        print(f"Aggregated data from {sanitized_url}")
+        print(aggregated_data[sanitized_url])
 
-def read_data(hdf5_file):
-          scraped_data = {}
-          with pd.HDFStore(hdf5_file, 'r') as store:
-              for key in store.keys():
-                    scraped_data[key] = store[key]
-          return scraped_data
+    return aggregated_data
 
-scraped_data = read_data(hdf5_file)
-visualize_data(scraped_data)
+# Example usage
+target_urls = ['https_za_investing_com_crypto_xrp_historical_data', 'https_www_skysports_com_la_liga_table', 'https_www_absa_co_za_indices_share_information_']
+aggregated_tables = aggregate_first_rows(hdf5_file, target_urls)
+
+
+def visualize_data(aggreggated_tables):
+    for url, table in aggreggated_tables.items():
+        if not table.empty:
+            print(f"Visualizing data from {url}")
+            plt.figure()
+            table.plot()
+            plt.title(url)
+            plt.show()
+        else:
+            print(f"No data from {url}")
+   
+visualize_data(aggregated_tables)

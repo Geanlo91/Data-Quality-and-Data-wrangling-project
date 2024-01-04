@@ -1,21 +1,26 @@
 import pandas as pd
-import numpy as np
 import requests 
-import h5py
-import matplotlib.pyplot as plt
 import datetime
 from datetime import datetime 
-import matplotlib.collections as mcol
-from matplotlib.legend_handler import HandlerLineCollection, HandlerTuple
-from matplotlib.lines import Line2D
 import logging
+import re
 
 #Logging setup
 logging.basicConfig(filename='scraping.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')    
 
-# Step 1: Read URLs from CSV
+# Read URLs from CSV
 csv_file = 'web_pages.csv'  # Replace with your CSV file path
 urls = pd.read_csv(csv_file)
+
+#Function to sanitize group names
+def sanitize_name(name):
+    #Replacenon_alphanumeric characters with underscores
+    sanitized = re.sub(r'\W+', '_', name)
+    #Ensure that group name doesn't start with digit
+    if sanitized[0].isdigit():
+        sanitized = '_' + sanitized
+    return sanitized
+
 
 # Function to scrape data
 def scrape_data(urls):
@@ -26,7 +31,7 @@ def scrape_data(urls):
         url = row['URL']
 
         # Get the first column name from CSV file
-        first_column_name = row['start_column_name']  
+        first_column_name = row['start_column_name']
         try:
             response = requests.get(url)
             tables_list = pd.read_html(response.text)
@@ -39,7 +44,11 @@ def scrape_data(urls):
                     
                     # Print the first few rows of the table
                     print(table.head())  
-                    break
+                #add regex backup if no table found
+                else:
+                    logging.error(f"No tables found in {url}")
+                    print(f"No tables found in {url}")
+                    
         except ValueError:
             logging.error(f"No tables found in {url}")
             print(f"No tables found in {url}")
@@ -52,7 +61,11 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url, (url, table) in enumerate(scraped_tables.items(), start=1):
             if isinstance(table, pd.DataFrame):
-                group_name = f"URL_:{url}" + f"Scrapped date: {scrape_date}"
+                group_name = sanitize_name(url)
+
+                #insert scrape date as first column
+                table.insert(0, 'Scrape Date', scrape_date)
+                
                 store.put(group_name, table)
 
                 # Save URL and date as attributes
@@ -69,7 +82,7 @@ hdf5_file = 'scraped_data.h5'
 #scraping count
 number_of_times = 1
 for _ in range(number_of_times):
-    scrape_date = datetime.now().strftime("%Y-%m-%d")
+    scrape_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     scraped_data = scrape_data(urls)
 
     # Save to HDF5 and visualize after processing all URLs
