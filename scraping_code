@@ -61,7 +61,8 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
     with pd.HDFStore(hdf5_file, 'a') as store:
         for url, (url, table) in enumerate(scraped_tables.items(), start=1):
             if isinstance(table, pd.DataFrame):
-                group_name = sanitize_name(url)
+                # Sanitize the group name with scrape date
+                group_name = f"{sanitize_name(url + '_' + scrape_date)}"
 
                 #insert scrape date as first column
                 table.insert(0, 'Scrape Date', scrape_date)

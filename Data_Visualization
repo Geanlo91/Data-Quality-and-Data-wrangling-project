@@ -31,15 +31,17 @@ def aggregate_first_rows(hdf5_file, target_urls):
             # Remove the leading slash and sanitize the key
             sanitized_key = sanitize_name(key[1:])
 
-            if sanitized_key in sanitized_urls:
-                data = store[key]
-                metadata = store.get_storer(key).attrs.metadata
-                url = metadata.get('url', '')
+            for sanitized_url in sanitized_urls:
+                if sanitized_url in sanitized_key:
+                    data = store[key]
+                    metadata = store.get_storer(key).attrs.metadata
+                    url = metadata.get('url', '')
 
-                first_row = data.head(1)
-                if column_names[sanitized_key] is None:
-                    column_names[sanitized_key] = first_row.columns
-                aggregated_data[sanitized_key].append(first_row)
+                    first_row = data.head(1)
+                    if column_names[sanitized_url] is None:
+                        column_names[sanitized_url] = first_row.columns
+                    aggregated_data[sanitized_url].append(first_row)
+                    break  # Break the loop once a match is found
 
     # Combine all first rows into separate DataFrames for each sanitized URL
     for sanitized_url in sanitized_urls:
@@ -62,10 +64,28 @@ def visualize_data(aggreggated_tables):
         if not table.empty:
             print(f"Visualizing data from {url}")
             plt.figure()
-            table.plot()
-            plt.title(url)
+            
+            #Plot specificcolumns for each URL and adjust legends
+            if url == "https_za_investing_com_crypto_xrp_historical_data":
+                table.plot(x='Scrape Date', y='High',kind = 'scatter')
+                #Place legend outside of plot
+                plt.legend(['Daily High Price'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+                plt.tick_params(axis='x', rotation=60)
+                plt.title('XRP High Price')
+
+
+            elif url == "https_www_skysports_com_la_liga_table":
+                table.plot(x='Scrape Date', y=['Pl','GD'],kind = 'bar')
+                plt.legend(['Played','Goal Diff'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+                plt.tick_params(axis='x', rotation=60)
+                plt.title('Real Madrid played vs Goal Diff')
+
+            elif url == "https_www_absa_co_za_indices_share_information_":
+                table.plot(x='Scrape Date', y=['High', 'Low'],kind = 'line')
+                plt.legend(['High', 'Low'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+                plt.tick_params(axis='x', rotation=60)
+                plt.title('JSE 4SI High and Low Prices')
+
             plt.show()
-        else:
-            print(f"No data from {url}")
-   
+
 visualize_data(aggregated_tables)
