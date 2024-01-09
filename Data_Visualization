@@ -55,7 +55,7 @@ def aggregate_first_rows(hdf5_file, target_urls):
     return aggregated_data
 
 # Example usage
-target_urls = ['https_za_investing_com_crypto_xrp_historical_data', 'https_www_skysports_com_la_liga_table', 'https_www_absa_co_za_indices_share_information_']
+target_urls = ['https_www_bitdegree_org_cryptocurrency_prices_xrp_xrp_price_price_history', 'https_www_skysports_com_la_liga_table', 'https_www_absa_co_za_indices_share_information_']
 aggregated_tables = aggregate_first_rows(hdf5_file, target_urls)
 
 
@@ -66,7 +66,7 @@ def visualize_data(aggreggated_tables):
             plt.figure()
             
             #Plot specificcolumns for each URL and adjust legends
-            if url == "https_za_investing_com_crypto_xrp_historical_data":
+            if url == "https_www_bitdegree_org_cryptocurrency_prices_xrp_xrp_price_price_history":
                 table.plot(x='Scrape Date', y='High',kind = 'scatter')
                 #Place legend outside of plot
                 plt.legend(['Daily High Price'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)

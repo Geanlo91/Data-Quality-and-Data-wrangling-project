@@ -64,7 +64,7 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
                 # Sanitize the group name with scrape date
                 group_name = f"{sanitize_name(url + '_' + scrape_date)}"
 
-                #insert scrape date as first column
+                #insert scrape date as first column 
                 table.insert(0, 'Scrape Date', scrape_date)
                 
                 store.put(group_name, table)
@@ -80,7 +80,7 @@ def save_to_hdf5(scraped_tables, hdf5_file, scrape_date):
 # HDF5 file name
 hdf5_file = 'scraped_data.h5'
  
-#scraping count
+#scraping loop
 number_of_times = 1
 for _ in range(number_of_times):
     scrape_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")

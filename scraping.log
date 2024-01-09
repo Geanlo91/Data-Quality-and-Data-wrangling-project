@@ -2714,3 +2714,177 @@ scrapped date: 2024-01-06 10:54:24
 2024-01-06 10:54:26,704:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-06 10:54:26
 2024-01-06 10:54:26,712:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-06 10:54:26
 2024-01-06 10:54:26,746:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-06 10:54:26
+2024-01-07 20:19:44,672:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-07 20:19:44
+2024-01-07 20:19:46,818:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-07 20:19:46
+2024-01-07 20:19:46,834:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-07 20:19:51,739:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-07 20:19:51
+2024-01-07 20:19:54,319:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-07 20:19:54
+2024-01-07 20:19:54,334:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-07 20:19:54
+2024-01-07 20:19:54,365:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-07 20:19:54
+2024-01-08 18:53:43,853:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 18:53:43
+2024-01-08 18:53:46,816:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 18:53:46
+2024-01-08 18:53:46,836:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 18:53:51,031:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 18:53:51
+2024-01-08 18:53:51,346:ERROR:No tables found in https://www.coingecko.com/
+2024-01-08 18:53:53,953:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 18:53:53
+2024-01-08 18:53:53,976:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 18:53:53
+2024-01-08 18:53:54,001:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 18:53:54
+2024-01-08 18:56:23,248:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 18:56:23
+2024-01-08 18:56:25,131:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 18:56:25
+2024-01-08 18:56:25,131:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 18:56:27,911:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 18:56:27
+2024-01-08 18:56:28,428:ERROR:No tables found in https://www.coingecko.com/
+2024-01-08 18:56:30,128:ERROR:No tables found in https://www.coindesk.com/indices/crypto-index-offerings
+2024-01-08 18:56:30,160:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 18:56:30
+2024-01-08 18:56:30,179:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 18:56:30
+2024-01-08 18:56:30,195:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 18:56:30
+2024-01-08 18:57:54,646:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 18:57:54
+2024-01-08 18:57:56,481:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 18:57:56
+2024-01-08 18:57:56,533:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 18:57:59,958:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 18:57:59
+2024-01-08 18:58:03,415:ERROR:No tables found in https://coinmarketcap.com/
+2024-01-08 18:58:05,961:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 18:58:05
+2024-01-08 18:58:05,983:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 18:58:05
+2024-01-08 18:58:06,000:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 18:58:06
+2024-01-08 18:59:01,988:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 18:59:01
+2024-01-08 18:59:04,930:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 18:59:04
+2024-01-08 18:59:04,936:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 18:59:08,216:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 18:59:08
+2024-01-08 18:59:10,314:ERROR:No tables found in https://coinmarketcap.com/
+2024-01-08 18:59:12,379:INFO:
+Scraped table from: https://www.forbes.com/digital-assets/crypto-prices/ 
+first column: '# 
+scrapped date: 2024-01-08 18:59:12
+2024-01-08 18:59:14,477:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 18:59:14
+2024-01-08 18:59:14,494:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 18:59:14
+2024-01-08 18:59:14,510:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 18:59:14
+2024-01-08 18:59:14,527:INFO:Saved table from: https://www.forbes.com/digital-assets/crypto-prices/ scrapped date: 2024-01-08 18:59:14
+2024-01-08 19:02:43,991:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 19:02:43
+2024-01-08 19:02:45,739:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 19:02:45
+2024-01-08 19:02:45,771:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 19:02:49,052:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 19:02:49
+2024-01-08 19:02:51,661:ERROR:No tables found in https://coinmarketcap.com/
+2024-01-08 19:02:56,601:INFO:
+Scraped table from: https://www.forbes.com/digital-assets/crypto-prices/ 
+first column: '# 
+scrapped date: 2024-01-08 19:02:56
+2024-01-08 19:03:00,673:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-08 19:03:00
+2024-01-08 19:03:04,220:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 19:03:04
+2024-01-08 19:03:04,271:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 19:03:04
+2024-01-08 19:03:04,338:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 19:03:04
+2024-01-08 19:03:04,403:INFO:Saved table from: https://www.forbes.com/digital-assets/crypto-prices/ scrapped date: 2024-01-08 19:03:04
+2024-01-08 19:03:04,427:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-08 19:03:04
+2024-01-08 19:24:00,940:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 19:24:00
+2024-01-08 19:24:02,671:INFO:
+Scraped table from: https://za.investing.com/crypto/xrp/historical-data 
+first column: 'Date 
+scrapped date: 2024-01-08 19:24:02
+2024-01-08 19:24:02,676:ERROR:No tables found in https://za.investing.com/crypto/xrp/historical-data
+2024-01-08 19:24:04,836:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 19:24:04
+2024-01-08 19:24:05,534:ERROR:No tables found in https://coinmarketcap.com/
+2024-01-08 19:24:06,524:INFO:
+Scraped table from: https://www.forbes.com/digital-assets/crypto-prices/ 
+first column: '# 
+scrapped date: 2024-01-08 19:24:06
+2024-01-08 19:24:09,086:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-08 19:24:09
+2024-01-08 19:24:12,242:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 19:24:12
+2024-01-08 19:24:12,262:INFO:Saved table from: https://za.investing.com/crypto/xrp/historical-data scrapped date: 2024-01-08 19:24:12
+2024-01-08 19:24:12,285:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 19:24:12
+2024-01-08 19:24:12,327:INFO:Saved table from: https://www.forbes.com/digital-assets/crypto-prices/ scrapped date: 2024-01-08 19:24:12
+2024-01-08 19:24:12,345:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-08 19:24:12
+2024-01-08 19:24:49,887:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-08 19:24:49
+2024-01-08 19:24:50,902:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-08 19:24:50
+2024-01-08 19:24:53,417:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-08 19:24:53
+2024-01-08 19:24:55,650:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-08 19:24:55
+2024-01-08 19:24:55,667:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-08 19:24:55
+2024-01-08 19:24:55,677:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-08 19:24:55
+2024-01-09 20:13:59,816:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-09 20:13:59
+2024-01-09 20:14:04,319:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-09 20:14:04
+2024-01-09 20:14:07,325:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-09 20:14:07
+2024-01-09 20:14:13,037:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-09 20:14:13
+2024-01-09 20:14:13,070:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-09 20:14:13
+2024-01-09 20:14:13,097:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-09 20:14:13
