@@ -2888,3 +2888,33 @@ scrapped date: 2024-01-09 20:14:07
 2024-01-09 20:14:13,037:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-09 20:14:13
 2024-01-09 20:14:13,070:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-09 20:14:13
 2024-01-09 20:14:13,097:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-09 20:14:13
+2024-01-10 20:18:55,642:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-10 20:18:55
+2024-01-10 20:18:57,506:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-10 20:18:57
+2024-01-10 20:18:59,611:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-10 20:18:59
+2024-01-10 20:18:59,667:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-10 20:18:59
+2024-01-10 20:18:59,686:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-10 20:18:59
+2024-01-10 20:18:59,705:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-10 20:18:59
+2024-01-11 21:03:57,799:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-11 21:03:57
+2024-01-11 21:04:00,316:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-11 21:04:00
+2024-01-11 21:04:05,627:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-11 21:04:05
+2024-01-11 21:04:05,997:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-11 21:04:05
+2024-01-11 21:04:06,080:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-11 21:04:06
+2024-01-11 21:04:06,097:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-11 21:04:06
