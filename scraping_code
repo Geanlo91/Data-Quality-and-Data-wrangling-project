@@ -48,7 +48,7 @@ def scrape_data(urls):
                 else:
                     logging.error(f"No tables found in {url}")
                     print(f"No tables found in {url}")
-                    
+                      
         except ValueError:
             logging.error(f"No tables found in {url}")
             print(f"No tables found in {url}")
