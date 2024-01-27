@@ -3083,3 +3083,18 @@ scrapped date: 2024-01-23 20:39:10
 2024-01-23 20:39:13,902:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-23 20:39:13
 2024-01-23 20:39:13,908:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-23 20:39:13
 2024-01-23 20:39:13,924:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-23 20:39:13
+2024-01-25 20:26:55,223:INFO:
+Scraped table from: https://www.skysports.com/la-liga-table 
+first column: '# 
+scrapped date: 2024-01-25 20:26:55
+2024-01-25 20:26:58,147:INFO:
+Scraped table from: https://www.absa.co.za/indices/share-information 
+first column: 'Ticker 
+scrapped date: 2024-01-25 20:26:58
+2024-01-25 20:27:01,834:INFO:
+Scraped table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history 
+first column: 'Date 
+scrapped date: 2024-01-25 20:27:01
+2024-01-25 20:27:03,883:INFO:Saved table from: https://www.skysports.com/la-liga-table scrapped date: 2024-01-25 20:27:03
+2024-01-25 20:27:03,883:INFO:Saved table from: https://www.absa.co.za/indices/share-information scrapped date: 2024-01-25 20:27:03
+2024-01-25 20:27:03,898:INFO:Saved table from: https://www.bitdegree.org/cryptocurrency-prices/xrp-xrp-price/price-history scrapped date: 2024-01-25 20:27:03
