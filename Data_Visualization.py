@@ -71,19 +71,19 @@ def visualize_data(aggreggated_tables):
                 table['High'] = table['High'].str.replace('$', '').astype(float)
                 table.plot(x='Scrape Date', y='High',kind = 'line')
                 plt.legend(['High price $'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-                plt.tick_params(axis='x', rotation=60)
+                plt.tick_params(axis='x', rotation=90)
                 plt.title('XRP High Price')
 
             elif url == "https_www_skysports_com_la_liga_table":
                 table.plot(x='Scrape Date', y=['Pl','GD'],kind = 'bar')
                 plt.legend(['Played','Goal Diff'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-                plt.tick_params(axis='x', rotation=60)
+                plt.tick_params(axis='x', rotation=90)
                 plt.title('Real Madrid played vs Goal Diff')
 
             elif url == "https_www_absa_co_za_indices_share_information_":
                 table.plot(x='Scrape Date', y=['High', 'Low'],kind = 'line')
                 plt.legend(['High', 'Low'], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-                plt.tick_params(axis='x', rotation=60)
+                plt.tick_params(axis='x', rotation=90)
                 plt.title('JSE 4SI High and Low Prices')
 
             plt.show()
